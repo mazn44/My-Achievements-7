@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنجازات مدير التسويق | معرض إيفان</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           الثيم الأورانج الفخم (Orange & Gold)
+           ========================================= */
+        :root {
+            --bg-dark: #0f0a06;
+            --bg-gradient: radial-gradient(circle at top right, #2a1100, #0a0500);
+            
+            --glass-bg: rgba(25, 15, 5, 0.65);
+            --glass-border: rgba(255, 140, 0, 0.2);
+            --glass-shadow: 0 15px 35px rgba(255, 102, 0, 0.15);
+            
+            --text-main: #fdf6e3;
+            --text-muted: #bdae93;
+            
+            --neon-orange: #ff7300;
+            --neon-gold: #ffb703;
+            --neon-red: #e63946;
+            --neon-white: #ffffff;
+            
+            --card-radius: 24px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg-gradient); background-color: var(--bg-dark);
+            color: var(--text-main); overflow-x: hidden; min-height: 100vh;
+        }
+
+        #particles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--neon-orange), var(--neon-gold)); border-radius: 10px; }
+
+        /* =========================================
+           الهيدر (الشريط العلوي)
+           ========================================= */
+        header {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(15, 10, 6, 0.8); backdrop-filter: blur(25px);
+            border-bottom: 1px solid var(--glass-border); padding: 15px 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+        }
+
+        .brand { display: flex; align-items: center; gap: 15px; }
+        .brand-img {
+            width: 55px; height: 55px; border-radius: 50%;
+            border: 2px solid var(--neon-orange); object-fit: contain; background: #111; padding: 2px;
+            box-shadow: 0 0 15px rgba(255, 115, 0, 0.5);
+        }
+        .brand h1 {
+            font-size: 26px; font-weight: 900; letter-spacing: 1px;
+            background: linear-gradient(90deg, var(--neon-gold), var(--neon-orange));
+            -webkit-background-clip: text; color: transparent;
+        }
+        .date-badge {
+            background: rgba(255, 115, 0, 0.1); border: 1px solid var(--neon-orange);
+            color: var(--neon-gold); padding: 8px 20px; border-radius: 20px; font-weight: bold; font-size: 14px;
+        }
+
+        /* =========================================
+           المحتوى الرئيسي (البطاقات الزجاجية)
+           ========================================= */
+        main { padding: 120px 5% 80px; max-width: 1400px; margin: 0 auto; }
+
+        .hero { text-align: center; margin-bottom: 70px; animation: slideDown 0.8s ease-out; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .hero h2 { font-size: 3.5em; font-weight: 900; margin-bottom: 15px; text-shadow: 0 0 20px rgba(255, 115, 0, 0.4); }
+        .hero p { font-size: 1.2em; color: var(--text-muted); max-width: 800px; margin: 0 auto; line-height: 1.6; }
+
+        /* تنسيق الشبكة */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 30px; }
+
+        .glass-card {
+            background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius); padding: 35px; box-shadow: var(--glass-shadow);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden;
+        }
+        .glass-card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transform: skewX(-25deg); transition: 0.5s;
+        }
+        .glass-card:hover { transform: translateY(-10px) scale(1.01); border-color: var(--neon-orange); box-shadow: 0 20px 40px rgba(255, 115, 0, 0.2); }
+        .glass-card:hover::before { left: 200%; transition: 0.7s; }
+
+        .section-icon {
+            width: 60px; height: 60px; background: rgba(255, 115, 0, 0.1); border-radius: 16px;
+            display: flex; justify-content: center; align-items: center; font-size: 28px;
+            color: var(--neon-orange); margin-bottom: 20px; border: 1px solid rgba(255, 115, 0, 0.3);
+        }
+
+        .card-title { font-size: 22px; font-weight: 800; margin-bottom: 20px; color: var(--neon-gold); }
+
+        /* القوائم التفصيلية */
+        .achievement-list { list-style: none; }
+        .achievement-list li {
+            position: relative; padding-right: 35px; margin-bottom: 15px; font-size: 16px;
+            line-height: 1.6; font-weight: 500; color: var(--text-main);
+        }
+        .achievement-list li::before {
+            content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+            position: absolute; right: 0; top: 2px; color: var(--neon-orange);
+            background: rgba(255, 115, 0, 0.15); width: 24px; height: 24px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; font-size: 12px;
+        }
+
+        /* بوكس الفريق المميز */
+        .team-box {
+            background: rgba(0, 0, 0, 0.3); border-radius: 16px; padding: 20px; margin-top: 20px;
+            border-right: 4px solid var(--neon-gold);
+        }
+        .team-box h4 { font-size: 18px; color: var(--neon-gold); margin-bottom: 10px; }
+        .team-box p { font-size: 15px; color: var(--text-muted); line-height: 1.5; }
+
+        /* خطة المستقبل (توهج خاص) */
+        .future-card { border-color: var(--neon-gold); background: rgba(255, 183, 3, 0.05); }
+        .future-card .section-icon { color: var(--neon-gold); border-color: var(--neon-gold); background: rgba(255, 183, 3, 0.1); }
+        .future-card .achievement-list li::before { color: var(--neon-gold); background: rgba(255, 183, 3, 0.15); content: '\f135'; }
+
+        /* التوقيع */
+        .signature {
+            text-align: center; margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--glass-border);
+        }
+        .signature h3 { font-size: 28px; font-weight: 900; color: var(--neon-orange); letter-spacing: 2px; margin-bottom: 5px;}
+        .signature p { color: var(--text-muted); font-size: 16px; font-weight: bold; }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            .hero h2 { font-size: 2.2em; }
+            main { padding: 100px 20px 40px; }
+            .grid-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+
+    <header>
+        <div class="brand">
+            <img src="mazen.png" alt="Ivan Show" class="brand-img" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjIwIiByPSIxNSIgZmlsbD0iI2ZmMzMwMCIvPjx0ZXh0IHg9IjUwIiB5PSI4NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjcwIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmZiI+aTwvdGV4dD48L3N2Zz4='">
+            <h1>إنجازات الإدارة</h1>
+        </div>
+        <div class="date-badge">17 أبريل 2026</div>
+    </header>
+
+    <main>
+        <div class="hero">
+            <h2>إنجازات إدارة قسم التسويق</h2>
+            <p>تقرير الإنجازات الواقعية والتحولات الاستراتيجية التي تم تنفيذها لرفع كفاءة المعرض، تقليل الهدر، وتصدر المشهد الرقمي في دهوك.</p>
+        </div>
+
+        <div class="grid-container">
+            
+            <div class="glass-card">
+                <div class="section-icon"><i class="fa-solid fa-clapperboard"></i></div>
+                <h3 class="card-title">ثورة المحتوى والإنتاج</h3>
+                <ul class="achievement-list">
+                    <li><strong>تحديث أسلوب العرض:</strong> التخلي عن السياسة القديمة الجامدة، والانتقال لإنتاج محتوى أكثر احترافية بلمسة كوميدية وشبابية مريحة للزبون.</li>
+                    <li><strong>تفريغ أيوب للإنتاج:</strong> جعل "أيوب" متفرغاً تماماً لتصوير الفيديوهات والظهور بها والتصميم فقط، دون إشغاله بالردود أو البيع الميداني لضمان أعلى جودة.</li>
+                    <li><strong>تقنين النشر لمنع الإزعاج:</strong> وضع خطة صارمة (فيديو واحد كل ساعة كحد أقصى)، وتقليل صور المعامل والستوريات التي لا تقدم قيمة.</li>
+                    <li><strong>حماية ولاء الزبائن:</strong> إيقاف النشر المفرط الذي كان يغضب الزبائن (خاصة عند بيع القطع المخفضة بلحظتها)، مما أوقف نزيف إلغاء المتابعات.</li>
+                </ul>
+            </div>
+
+            <div class="glass-card">
+                <div class="section-icon"><i class="fa-solid fa-globe"></i></div>
+                <h3 class="card-title">التوسع والانتشار الرقمي</h3>
+                <ul class="achievement-list">
+                    <li><strong>الرد الشامل على كل المنصات:</strong> تفعيل الردود على كل المواقع والتعليقات المهملة سابقاً، لتوسيع رقعة العمل وزيادة الموثوقية.</li>
+                    <li><strong>اكتساح جوجل واليوتيوب:</strong> التركيز على خرائط جوجل، والبدء بالنشر المكثف على YouTube لضرب السوق من جميع الاتجاهات.</li>
+                    <li><strong>إطلاق صفحة مجانية للعملاء:</strong> تصميم وتطوير صفحة مبدئية لخدمة الزبائن وعرض الهوية قبل الإطلاق الرسمي للموقع الإلكتروني الشامل.</li>
+                </ul>
+            </div>
+
+            <div class="glass-card">
+                <div class="section-icon"><i class="fa-solid fa-star"></i></div>
+                <h3 class="card-title">أنظمة التقييم وثقة العملاء</h3>
+                <ul class="achievement-list">
+                    <li><strong>ابتكار باركود التقييم (QR):</strong> توزيع باركود التقييم على كل طوابق المعرض لضمان تقييم الزبائن لنا فوراً بعد البيع.</li>
+                    <li><strong>تقييم مبيعات الإنترنت:</strong> إرسال طلب التقييم لكل زبون يشتري عبر الإنترنت لرفع تقييمات خرائط جوجل باستمرار.</li>
+                    <li><strong>استبيانات السوق:</strong> إعداد استبيانات دقيقة وتقارير لمعرفة أكثر القطع التي يطلبها الزبائن، لتوجيه قسم المشتريات وزيادة البيع بذكاء.</li>
+                </ul>
+            </div>
+
+            <div class="glass-card">
+                <div class="section-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                <h3 class="card-title">الإدارة، التنظيم، وتقليل الهدر</h3>
+                <ul class="achievement-list">
+                    <li><strong>تقليل المصاريف للحد الأدنى:</strong> ضبط ميزانية قسم التسويق وكافة الأقسام وإيقاف أي هدر مالي.</li>
+                    <li><strong>ترشيق الهيكل الوظيفي:</strong> الاستغناء الفوري عن أي شخص أو مهام غير لازمة لتوفير رواتب ومصاريف على إدارة المعرض.</li>
+                    <li><strong>قوائم المهام (Task Lists):</strong> وضع قائمة مهام واضحة ومكتوبة أمام كل شخص في قسم التسويق لضمان عدم نسيان أو إهمال أي عمل.</li>
+                    <li><strong>نظام التحفيز والشهادات:</strong> تصميم شهادات شكر للعمال، وتنظيم نظام تقييم شهري لاختيار وتكريم "الأفضل" في كل قسم.</li>
+                </ul>
+            </div>
+
+            <div class="glass-card">
+                <div class="section-icon"><i class="fa-solid fa-chart-pie"></i></div>
+                <h3 class="card-title">البيانات وفريق الأحلام</h3>
+                <ul class="achievement-list">
+                    <li><strong>تقارير إدارية شهرية:</strong> بناء نظام تقارير منتظم يشمل كل مستجدات قسم التسويق، البياعين، قيمة المبيعات، ومقارنة الصعود والنزول بين الشهور.</li>
+                </ul>
+                <div class="team-box">
+                    <h4><i class="fa-solid fa-users-rays"></i> فريق تسويق متكامل</h4>
+                    <p><strong>سرهاد وعلي:</strong> وحوش الردود والمبيعات على الإنترنت (CS & Online Sales).<br>
+                    <strong>أيوب والند:</strong> ملوك التصميم، المونتاج، والنشر الاحترافي. <br>
+                    كل شخص يمسك بزمام أموره باحترافية تامة.</p>
+                </div>
+            </div>
+
+            <div class="glass-card future-card">
+                <div class="section-icon"><i class="fa-solid fa-rocket"></i></div>
+                <h3 class="card-title">الرؤية والخطة المستقبلية</h3>
+                <ul class="achievement-list">
+                    <li><strong>دخول عالم سناب شات:</strong> إنشاء وتفعيل صفحة Snapchat لتنضم إلى أسطول صفحاتنا الجديدة.</li>
+                    <li><strong>تصدر الذكاء الاصطناعي:</strong> التركيز المطلق على رفع التقييمات في خرائط جوجل ومحركات AI ليكون اسم "إيفان" في الصدارة دائماً.</li>
+                    <li><strong>محتوى جيل الشباب:</strong> تقديم محتوى أكثر احترافية و كوميدية لجذب جيل الشباب الصاعد الذين يمثلون القوة الشرائية القادمة.</li>
+                    <li><strong>الرصد الذكي:</strong> المراقبة المستمرة والدائمة للمنافسين، وارتقاب الأفضل وتطبيقه فوراً في المعرض.</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="signature">
+            <h3>مازن داوود</h3>
+            <p>إدارة التسويق والتطوير - معرض إيفان</p>
+        </div>
+
+    </main>
+
+    <script>
+        // حركة الشرر الذهبي والأورانج (Particles)
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles;
+
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < 40; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    r: Math.random() * 2 + 1,
+                    vx: Math.random() * 0.5 - 0.25,
+                    vy: Math.random() * -1 - 0.5, // حركة للأعلى مثل الشرر
+                    color: Math.random() > 0.5 ? 'rgba(255, 115, 0, 0.6)' : 'rgba(255, 183, 3, 0.6)'
+                });
+            }
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, width, height);
+            
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+                
+                p.x += p.vx;
+                p.y += p.vy;
+                
+                // إعادة الجزيئات من الأسفل إذا خرجت من الأعلى
+                if (p.y < 0) {
+                    p.y = height;
+                    p.x = Math.random() * width;
+                }
+            });
+            requestAnimationFrame(drawParticles);
+        }
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        drawParticles();
+    </script>
+</body>
+</html>
